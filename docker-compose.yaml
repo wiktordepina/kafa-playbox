@@ -1,0 +1,30 @@
+version: '3.4'
+services:
+  zookeeper:
+    image: jplock/zookeeper:3.5.5
+    ports:
+      - 2181:2181
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  kafka:
+    image: wurstmeister/kafka:2.13-2.7.0
+    hostname: kafka
+    ports:
+      - 9092:9092
+    links:
+      - zookeeper
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_PORT: 9092
+      # Without this option connections from localhost won't be possible
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+
+  kafka-cluster:
+    image: centos:centos7 # This image doesn't run anything, but allows us to have links
+    links:
+      - zookeeper
+      - kafka

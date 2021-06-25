@@ -1,0 +1,2 @@
+brew "zookeeper"
+brew "kafka"
