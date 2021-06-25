@@ -22,7 +22,7 @@ kafka-topics --bootstrap-server localhost:9092 --list
 
 2. Create topic:
 ```shell
-kafka-topics --bootstrap-server localhost:9092 --create --topic ids [--partitions <number_of_partitions>]
+kafka-topics --bootstrap-server localhost:9092 --create --topic <topic_name> [--partitions <number_of_partitions>]
 ```
 
 3. Start producer:
